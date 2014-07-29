@@ -1,0 +1,27 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>calendar for Firefox OS</title>
+  <script type="text/javascript" src="calendar.js" charset="utf-8"></script>
+</head>
+<body onload="load()">
+  <table id="caltable">
+    <caption>
+      <select id="year"  onchange="change()"></select>年<select id="month" onchange="change()" ></select>月      
+    </caption>
+    <thead>
+      <tr id="week">
+        <th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th>
+      </tr>
+    </thead>
+    <tbody id="content">
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</body>
+</html>
