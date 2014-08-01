@@ -3,11 +3,13 @@
   <meta charset="utf-8" />
   <title>calendar for Firefox OS</title>
   <script type="text/javascript" src="calendar.js" charset="utf-8"></script>
+  <script type="text/javascript" src="calendar-converter.js" charset="utf-8"></script>
 </head>
 <body onload="load()">
   <table id="caltable">
     <caption>
-      <select id="year"  onchange="change()"></select>年<select id="month" onchange="change()" ></select>月      
+      <select id="year"  onchange="change()"></select>年<select id="month" onchange="change()" ></select>月
+      <input type="button" id='backDay' value = '今天' onclick ='reSetCal()'> 
     </caption>
     <thead>
       <tr id="week">
