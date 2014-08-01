@@ -23,8 +23,17 @@ function load() {
   }
   change();
 }
-
+function reSetCal() {
+  var cYear = document.getElementById("year");
+  var cMonth = document.getElementById("month");
+  cYear.value = new Date().getFullYear();
+  cMonth.value = new Date().getMonth() + 1;
+  change();
+}
 function change() {
+  var currentYear = new Date().getFullYear();
+  var currentMonth = new Date().getMonth() + 1;
+  var currentDay = new Date().getDate();
   var cYear = document.getElementById("year");
   var cMonth = document.getElementById("month");
   var selectedYear = cYear.value;   //所选年份
@@ -40,50 +49,102 @@ function change() {
     for (var j = 0; j < 7; j++) {
       if (startDay > 0) {
         tagTbody.rows[i].cells[j].textContent = daysInPreMonth - startDay + 1;
+        tagTbody.rows[i].cells[j].style.backgroundColor = 'white';
         startDay -= 1;
+      }
+      else if ((startDay == 0)&&(add <= daysInCurMonth) && (selectedMonth == currentMonth) && (add == currentDay)) {
+        tagTbody.rows[i].cells[j].style.backgroundColor = '#F9F9F9';
+        tagTbody.rows[i].cells[j].textContent = add;
+        add += 1;
       }
       else if ((startDay == 0)&&(add <= daysInCurMonth)) {
         tagTbody.rows[i].cells[j].textContent = add;
+        tagTbody.rows[i].cells[j].style.backgroundColor = 'white';
         add += 1;
       }
       else if ((startDay == 0)&&(add > daysInCurMonth)) {
          tagTbody.rows[i].cells[j].textContent = addm;
+         tagTbody.rows[i].cells[j].style.backgroundColor = 'white';
          addm +=1
       }
     }
   }
-    
-  ftvset();
+  
+  var tagTbody = document.getElementById("content");
+  var startDay = new Date(selectedYear,selectedMonth - 1, 1).getDay();
+  var daysInPreMonth = new Date(selectedYear,selectedMonth - 1,0).getDate();
+  var daysInCurMonth = new Date(selectedYear,selectedMonth,0).getDate();
+  var add = 1;
+  var addm = 1;
+  var cc  =new CalendarConverter;
+  
+  for (var i = 1; i < 12; i += 2) {
+    for (var j = 0; j < 7; j++) {
+      var result1 = cc.solar2lunar(new Date(selectedYear, selectedMonth - 2, daysInPreMonth - startDay + 1 ));
+      var result2 = cc.solar2lunar(new Date(selectedYear, selectedMonth - 1, add ));
+      var result3 = cc.solar2lunar(new Date(selectedYear, selectedMonth , addm));
+      
+      if ((startDay > 0) && (result1.lunarFestival == '') && (result1.solarTerms == '')) {
+        tagTbody.rows[i].cells[j].textContent = result1.lunarDay ;
+        startDay -= 1;
+      }
+      else if ((startDay > 0) &&(result1.lunarFestival == '') && (result1.solarTerms != '') ){
+        tagTbody.rows[i].cells[j].textContent = result1.solarTerms;
+        startDay -= 1;
+      }
+      else if ((startDay > 0) && (result1.lunarFestival != '') ){
+        tagTbody.rows[i].cells[j].textContent = result1.lunarFestival;
+        startDay -= 1;
+      }
+      else if ((startDay == 0)&&(add <= daysInCurMonth) && (result2.lunarFestival == '') && (result2.solarTerms == '')) {
+        tagTbody.rows[i].cells[j].textContent = result2.lunarDay;
+        add += 1;
+      }
+      else if ((startDay == 0)&&(add <= daysInCurMonth) && (result2.lunarFestival == '') && (result2.solarTerms != ''))  {
+        tagTbody.rows[i].cells[j].textContent = result2.solarTerms;
+        add += 1;
+      }
+      else if ((startDay == 0)&&(add <= daysInCurMonth) && (result2.lunarFestival != '')) {
+        tagTbody.rows[i].cells[j].textContent = result2.lunarFestival;
+        add += 1;
+      }
+      else if ((startDay == 0)&&(add > daysInCurMonth) && (result3.lunarFestival == '') && (result3.solarTerms == '')) {
+         tagTbody.rows[i].cells[j].textContent = result3.lunarDay;
+         addm +=1
+      }
+      else if ((startDay == 0)&&(add > daysInCurMonth) && (result3.lunarFestival == '') && (result3.solarTerms != '')) {
+        tagTbody.rows[i].cells[j].textContent = result3.solarTerms;
+         addm +=1
+      }
+      else if ((startDay == 0)&&(add > daysInCurMonth) && (result3.lunarFestival != '')) {
+         tagTbody.rows[i].cells[j].textContent = result3.lunarFestival;
+         addm +=1
+      }
+    }
+  }
+  solarftvset();
 }
 
 
-function ftvset(){
+function solarftvset(){
   var cYear = document.getElementById("year");
   var selectedYear = cYear.value;   //所选年份
   var cMonth = document.getElementById("month");
   var selectedMonth = cMonth.value;  //所选月份(1~12)
   var tagTbody = document.getElementById("content");
-  var yuandan = new Date(selectedYear,0, 1).getDay();
-  var qingren = new Date(selectedYear,1, 1).getDay() + 13;
-  var funv = new Date(selectedYear,2, 1).getDay() + 7;
-  var zhishu = new Date(selectedYear,2, 1).getDay() + 11;
-  var yuren = new Date(selectedYear,3, 1).getDay();
-  var laodong = new Date(selectedYear,4, 1).getDay();
-  var qingnian = new Date(selectedYear,4, 1).getDay() + 3;
-  
   function setftl(month,day,chineseName) {
+    var tagTbody = document.getElementById("content");
     var cYear = document.getElementById("year");
     var selectedYear = cYear.value;   //所选年份
     var cMonth = document.getElementById("month");
     var selectedMonth = cMonth.value;  //所选月份(1~12)
-    var tagTbody = document.getElementById("content");
     var setl = new Date(selectedYear,month - 1, 1).getDay() + day - 1;
     if (selectedMonth == month) {
       var setr = 1;
       for (;setl>6;setl -= 7) {
         setr +=2;
       }
-      tagTbody.rows[setr].cells[setl].textContent = chineseName;
+    tagTbody.rows[setr].cells[setl].textContent = chineseName;
     }
   }
   setftl(1,1,"元旦");
@@ -93,28 +154,13 @@ function ftvset(){
   setftl(4,1,"愚人");
   setftl(5,1,"劳动");
   setftl(5,4,"青年");
-  setftl(6, 1, "儿童");
+  setftl(6, 1,"儿童");
   setftl(7,1,"建党");
   setftl(8,1,"建军");
   setftl(9,10,"教师");
   setftl(10,1,"国庆");
   setftl(12,25,"圣诞");
-  
-  var momDayMonth = new Date(selectedYear,4, 1).getDay();
-  if ((momDayMonth == 0) && (selectedMonth == 5)) {
-    tagTbody.rows[3].cells[0].textContent = "母亲";
-  }
-  else if(selectedMonth == 5) {
-    tagTbody.rows[5].cells[0].textContent = "母亲";
-  }
-  var dadDayMonth = new Date(selectedYear,5, 1).getDay();
-  if ((dadDayMonth == 0) && (selectedMonth == 6)) {
-    tagTbody.rows[5].cells[0].textContent = "父亲";
-  }
-  else if (selectedMonth == 6){
-    tagTbody.rows[7].cells[0].textContent = "父亲";
-  }
-
-  
 }
-     
+
+
+
