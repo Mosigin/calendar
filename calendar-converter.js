@@ -1,4 +1,4 @@
-(function() {
+;(function() {
   var root = this;
 
   ///////////////////////////////////////////////////
@@ -86,18 +86,20 @@
   var wFtv = new Array(
   //一月的最后一个星期日（月倒数第一个星期日）
   "0520 母亲节",
-  "0630 父亲节",
-  "1144 感恩节");
+  "0630 父亲节");
 
   //农历节日
   var lFtv = new Array(
   "0101*春节",
   "0115 元宵节",
+  "0202 龙抬头",
   "0505 端午节",
   "0707 七夕",
-  "0715 鬼节",
+  "0715 中元节",
   "0815 中秋节",
   "0909 重阳节",
+  "1208 腊八节",
+  "1223 小年",
   "0100*除夕");
 
   //====================================== 返回农历 y年的总天数
@@ -367,6 +369,7 @@
 
   }
   function addFstv(sYear, sMonth, sDay, weekDay, lunarYear, lunarMonth, lunarDay, isLeap) {
+    var startday= new Date(sYear,sMonth - 1, 1).getDay();
     var cYear, cMonth, cDay, that = {};
     ////////年柱 1900年立春后为庚子年(60进制36)
     if(sMonth < 2 ) {
@@ -420,10 +423,10 @@
     for (i = 0, item; item = wFtv[i]; i++) {
       if (item.match(/^(\d{2})(\d)(\d)([\s\*])(.+)$/)) {
         if (Number(RegExp.$1) == (sMonth + 1)) {
-          tmp1 = Number(RegExp.$2);
-          tmp2 = Number(RegExp.$3);
+          tmp1 = Number(RegExp.$2);//第几个 05 2 0  06 3 0
+          tmp2 = Number(RegExp.$3);//星期几
           if (tmp1 < 5) {
-            var wFtvDate = (tmp2 == 0 ? 7 : 0) + (tmp1 - 1)*7 + tmp2;
+            var wFtvDate = tmp1 * 7  - (startday == 0? 7 :startday) + 1 + tmp2;
             if (wFtvDate == sDay) {
               that.solarFestival += RegExp.$5 + ' ';
               break;
@@ -490,7 +493,8 @@
   } else {
     root.CalendarConverter = CalendarConverter;
   }
-})();
+})()
+
 
 function load() {
   var cYear = document.getElementById("year");
