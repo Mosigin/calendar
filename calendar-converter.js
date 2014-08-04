@@ -59,47 +59,34 @@
   //公历节日 *表示放假日
   var sFtv = new Array(
   "0101*元旦",
-  "0214 情人节",
-  "0308 妇女节",
-  "0312 植树节",
-  "0401 愚人节",
-  "0422 地球日",
-  "0501 劳动节",
-  "0504 青年节",
-  "0531 无烟日",
-  "0601 儿童节",
-  "0606 爱眼日",
-  "0701 建党日",
-  "0707 抗战纪念日",
-  "0801 建军节",
-  "0910 教师节",
-  "0918 九·一八事变纪念日",
-  "1001*国庆节",
-  "1031 万圣节",
-  "1111 光棍节",
-  "1201 艾滋病日",
-  "1213 南京大屠杀纪念日",
-  "1224 平安夜",
-  "1225 圣诞节");
+  "0214 情人",
+  "0308 妇女",
+  "0312 植树",
+  "0401 愚人",
+  "0501 劳动",
+  "0504 青年",
+  "0601 儿童",
+  "0701 建党",
+  "0801 建军",
+  "0910 教师",
+  "1001*国庆",
+  "1225 圣诞");
 
   //某月的第几个星期几。 5,6,7,8 表示到数第 1,2,3,4 个星期几
   var wFtv = new Array(
   //一月的最后一个星期日（月倒数第一个星期日）
-  "0520 母亲节",
-  "0630 父亲节");
+  "0520 母亲",
+  "0630 父亲");
 
   //农历节日
   var lFtv = new Array(
   "0101*春节",
-  "0115 元宵节",
-  "0202 龙抬头",
-  "0505 端午节",
+  "0115 元宵",
+  "0505 端午",
   "0707 七夕",
-  "0715 中元节",
-  "0815 中秋节",
-  "0909 重阳节",
-  "1208 腊八节",
-  "1223 小年",
+  "0715 鬼节",
+  "0815 中秋",
+  "0909 重阳",
   "0100*除夕");
 
   //====================================== 返回农历 y年的总天数
@@ -369,7 +356,7 @@
 
   }
   function addFstv(sYear, sMonth, sDay, weekDay, lunarYear, lunarMonth, lunarDay, isLeap) {
-    var startday= new Date(sYear,sMonth - 1, 1).getDay();
+    var startday= new Date(sYear,sMonth, 1).getDay();
     var cYear, cMonth, cDay, that = {};
     ////////年柱 1900年立春后为庚子年(60进制36)
     if(sMonth < 2 ) {
@@ -411,7 +398,7 @@
     //公历节日
     for (var i = 0, item; item = sFtv[i]; i++) {
       if(item.match(/^(\d{2})(\d{2})([\s\*])(.+)$/)) {
-        if(Number(RegExp.$1)==(sMonth+1)) {
+        if(Number(RegExp.$1)==(sMonth + 1)) {
             if (Number(RegExp.$2) == sDay) {
                 that.solarFestival += RegExp.$4 + ' ';
             }
@@ -532,33 +519,14 @@ function reSetCal() {
 
 var gConverter = new CalendarConverter;
 
-var gSolarFestivals = {
-  "1-1": "元旦",
-  "2-14": "情人",
-  "3-8": "妇女",
-  "3-12": "植树",
-  "4-1": "愚人",
-  "5-1": "劳动",
-  "5-4": "青年",
-  "6-1": "儿童",
-  "7-1": "建党",
-  "8-1": "建军",
-  "9-10": "教师",
-  "10-1": "国庆",
-  "12-25": "圣诞"
-};
 
 function showFestivalOrLunar(solarDate) {
-  var month = solarDate.getMonth() + 1;
-  var day = solarDate.getDate();
-  var key = month + '-' + day;
-  if (gSolarFestivals[key]) {
-    return gSolarFestivals[key];
-  }
 
   var result = gConverter.solar2lunar(solarDate);
-
-  if (result.lunarFestival) {
+  if (result.solarFestival) {
+    return result.solarFestival;
+  }
+  else if (result.lunarFestival) {
     return result.lunarFestival;
   }
   else if (result.solarTerms) {
@@ -599,11 +567,3 @@ function change() {
     }
   }
 }
-
-
-
-
-
-
-
-
