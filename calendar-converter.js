@@ -552,18 +552,42 @@ function change() {
   // 日历第一天的Date对象值
   var date = new Date(selectedYear,selectedMonth - 1, 1 - startDay);
   var tagTbody = document.getElementById("content");
-  for (var row = 0; row < 6; row++) {
+  var result = gConverter.solar2lunar(date);
+  for (var row = 0; row < 12; row += 2) {
     for (var col = 0; col < 7; col++) {
-      // 公历的day in month.
       var day = date.getDate();
       var lunar = showFestivalOrLunar(date);
       var isToday = date.getFullYear() == currentYear &&
                     date.getMonth() == currentMonth &&
                     day == currentDay;
       var cell = tagTbody.rows[row].cells[col];
-      cell.style.backgroundColor = isToday ? '#F9F9F9' : 'white';
-      cell.innerHTML = day +  '<br/>' + lunar;
+      cell.textContent = day;
+      
+      cell.className = "number";
+      if ((col == 0) || (col == 6)) {   //数字
+        cell.className = "orange";
+      }
       date.setDate(day + 1);
+      
+      var cell2 = tagTbody.rows[row + 1].cells[col];
+      cell2.textContent = lunar;
+      cell2.className = "festival";
+      
+      if ((result.solarFestival) || (result.lunarFestival)){    //问题1：参照showFestivalOrLunar()函数的写法，规定了不同节日或节气或普通农历日所对应的td的className，但没有效果。
+        cell2.className = "festival";
+      }
+      else if (result.solarTerms) {
+        cell2.className = "solarTerms";
+      }
+      else if (result.lunarDay) {
+        cell2.className = "lunarDay";
+      }
+      
+      if (isToday) {
+        cell.style.backgroundColor='#80CFDC';    //问题2：此处设置当日的背景，没有起到作用
+        cell2.style.backgroundColor='#80CFDC';
+      }
+
     }
   }
 }
