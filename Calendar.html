@@ -2,27 +2,91 @@
 <head>
   <meta charset="utf-8" />
   <title>calendar for Firefox OS</title>
-  <script type="text/javascript" src="calendar-converter.js" charset="utf-8"></script>>
+  <script type="text/javascript" src="calendar-converter.js" charset="utf-8"></script>
+  <style type="text/css">
+    #Container{
+      width:270px;
+      margin:0 auto;/*设置整个容器在浏览器中水平居中*/
+      background:#F4F4F4;
+    }
+    #backDay{
+      width:44px;
+      margin:0 10px 0 20px;
+      background:#EFEFEF;
+    }
+    .orange {
+      color: #F57C12;
+      text-align:center;
+    }
+    .number {
+    text-align:center;
+    }
+    .select {background-color: #F4F4F4}
+    .festival{
+      color: #FF1A1E;
+      text-align:center;
+    }
+    .solarTerms{
+      color: #F1A959;
+      text-align:center;
+    }
+    .lunarDay{
+      text-align:center;
+    }
+    .istoday{
+      background-color: #80CFDC;
+      text-align:center;
+    }
+    .nian{
+      width: 55px;           
+      height:22px;
+      line-height:15px;
+      vertical-align:middle;
+      background: rgba(162,158,158,0.05);    
+      position: relative;
+    }
+    .yue{
+      width: 40px;           
+      height:22px;
+      line-height:15px;
+      vertical-align:middle;
+      background: rgba(162,158,158,0.05);    
+      position: relative;
+    }
+    .isToday {
+      color: #80CFDC;
+      text-align:center;
+    }
+  </style>
 </head>
 <body onload="load()">
-  <table id="caltable">
-    <caption>
-      <select id="year"  onchange="change()"></select>年<select id="month" onchange="change()" ></select>月
-      <input type="button" id='backDay' value = '今天' onclick ='reSetCal()'> 
-    </caption>
-    <thead>
-      <tr id="week">
-        <th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th>
-      </tr>
-    </thead>
-    <tbody id="content">
-      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    </tbody>
-  </table>
+  <div id="Container">
+    <table id="caltable">
+      <caption>
+        <span><select id="year" class="nian"  onchange="change()" ></select></span>年
+        <span><select id="month" class="yue" onchange="change()" ></select></span>月
+        <span><input type="button" id='backDay' value = '今天' onclick ='reSetCal()'> </span>
+      </caption>
+      <thead>
+        <tr id="week">
+          <th class="orange">日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class="orange">六</th>
+        </tr>
+      </thead>
+      <tbody id="content">
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>
