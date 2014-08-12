@@ -5,23 +5,70 @@
   <script type="text/javascript" src="calendar-converter.js" charset="utf-8"></script>
   <style type="text/css">
     #Container{
-      width:270px;
+      width:420px;
+      height: 600px;
       margin:0 auto;/*设置整个容器在浏览器中水平居中*/
       background:#F4F4F4;
     }
-    #backDay{
-      width:44px;
-      margin:0 10px 0 20px;
-      background:#EFEFEF;
+    .blockNian{
+      width: auto;           
+      height: auto;
+      margin-top: 20px;
+      margin-bottom: 15px;
     }
-    .orange {
-      color: #F57C12;
-      text-align:center;
+    .blockYue{
+      width: auto;           
+      height:auto;
+      margin-top: 20px;
     }
-    .number {
-    text-align:center;
+    .borderZero{
+      border: none
     }
-    .select {background-color: #F4F4F4}
+    .sizeBoldColorbgColor{
+      color: #313030;
+      background: #F4F4F4;
+      font-weight:  900;
+      font-size:142%;
+    }
+    .todayButton{
+      background:url(today.png) no-repeat;
+      border-bottom-color: black;
+      width:82px;
+      height:42px;
+      margin: 20px 15px 0 30px;
+      padding: 0 0;
+      float: right
+    }
+    #week{
+      font-size:225%;
+      
+    }
+    .orange{
+      color:#cd6500;
+    }
+    .thStandard{
+      padding:16px 10px 6px 10px;
+      font-weight: bolder;
+    }
+    
+    #content{
+      text-align: center;
+    }
+    
+    .number{
+      font-size:195%;
+      font-weight: bold;
+      padding-top: 9px;
+      padding-bottom: 9px;
+    }
+    
+    .chineseDate {
+      font-size:121%;
+      font-weight: bold;
+    }
+    .select {
+      background-color: #F4F4F4;
+    }
     .festival{
       color: #FF1A1E;
       text-align:center;
@@ -33,43 +80,23 @@
     .lunarDay{
       text-align:center;
     }
-    .istoday{
-      background-color: #80CFDC;
-      text-align:center;
+    .otherMonthDate{
+      color: #bcbcbc;
     }
-    .nian{
-      width: 55px;           
-      height:22px;
-      line-height:15px;
-      vertical-align:middle;
-      background: rgba(162,158,158,0.05);    
-      position: relative;
-    }
-    .yue{
-      width: 40px;           
-      height:22px;
-      line-height:15px;
-      vertical-align:middle;
-      background: rgba(162,158,158,0.05);    
-      position: relative;
-    }
-    .isToday {
-      color: #80CFDC;
-      text-align:center;
-    }
+
   </style>
 </head>
 <body onload="load()">
   <div id="Container">
-    <table id="caltable">
-      <caption>
-        <span><select id="year" class="nian"  onchange="change()" ></select></span>年
-        <span><select id="month" class="yue" onchange="change()" ></select></span>月
-        <span><input type="button" id='backDay' value = '今天' onclick ='reSetCal()'> </span>
+    <table id="caltable" border="0">
+      <caption class="sizeBoldColorbgColor" style="width:420px;">
+        <span ><select id="year" class="blockNian borderZero sizeBoldColorbgColor"  onchange="change()" ></select></span><span class="sizeBoldColorbgColor" style="margin:0 5px 0 10px;">年</span>
+        <span><select id="month" class="blockYue borderZero sizeBoldColorbgColor" onchange="change()"></select></span><span class="sizeBoldColorbgColor" style="margin:0 10px;">月</span>
+        <span><input type="button" id='backDay' onclick ='reSetCal()'  class="todayButton"> </span>
       </caption>
       <thead>
         <tr id="week">
-          <th class="orange">日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class="orange">六</th>
+          <th class="orange thStandard">日</th><th class="thStandard">一</th><th class="thStandard">二</th><th class="thStandard">三</th><th class="thStandard">四</th><th class="thStandard">五</th><th class="orange thStandard">六</th>
         </tr>
       </thead>
       <tbody id="content">
