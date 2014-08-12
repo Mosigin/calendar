@@ -552,42 +552,47 @@ function change() {
   // 日历第一天的Date对象值
   var date = new Date(selectedYear,selectedMonth - 1, 1 - startDay);
   var tagTbody = document.getElementById("content");
-  var result = gConverter.solar2lunar(date);
-  for (var row = 0; row < 12; row += 2) {
+  
+  for (var row = 0; row < 10; row += 2) {
     for (var col = 0; col < 7; col++) {
       var day = date.getDate();
       var lunar = showFestivalOrLunar(date);
       var isToday = date.getFullYear() == currentYear &&
-                    date.getMonth() == currentMonth &&
+                    date.getMonth() + 1 == currentMonth &&
                     day == currentDay;
       var cell = tagTbody.rows[row].cells[col];
       cell.textContent = day;
+      var result = gConverter.solar2lunar(date);
       
       cell.className = "number";
       if ((col == 0) || (col == 6)) {   //数字
-        cell.className = "orange";
+        cell.className = "number orange";
       }
       date.setDate(day + 1);
       
       var cell2 = tagTbody.rows[row + 1].cells[col];
       cell2.textContent = lunar;
-      cell2.className = "festival";
+      cell2.className = "chineseDate";
       
-      if ((result.solarFestival) || (result.lunarFestival)){    //问题1：参照showFestivalOrLunar()函数的写法，规定了不同节日或节气或普通农历日所对应的td的className，但没有效果。
-        cell2.className = "festival";
+      if ((result.solarFestival) || (result.lunarFestival)){
+        cell2.className = "chineseDate festival";
       }
       else if (result.solarTerms) {
-        cell2.className = "solarTerms";
+        cell2.className = "chineseDate solarTerms";
       }
       else if (result.lunarDay) {
-        cell2.className = "lunarDay";
+        cell2.className = "chineseDate lunarDay";
       }
-      
+      //console.log(lunar + ' solarFestival:' + result.solarFestival);
+      //console.log(JSON.stringify(result));
+      console.log(isToday)
       if (isToday) {
-        cell.style.backgroundColor='#80CFDC';    //问题2：此处设置当日的背景，没有起到作用
-        cell2.style.backgroundColor='#80CFDC';
+        cell.style.background="url(blue.png) no-repeat" ;
       }
-
+      if (((row == 0) && (day > 7)) ||((row > 6) && (day < 15))) {
+        cell.className = "number otherMonthDate";
+        cell2.className = "otherMonthDate chineseDate";
+      }
     }
   }
 }
