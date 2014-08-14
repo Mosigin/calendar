@@ -31,7 +31,7 @@
       font-size:142%;
     }
     .todayButton{
-      background:url(today.png) no-repeat;
+      background:url(image/today.png) no-repeat;
       border-bottom-color: black;
       width:82px;
       height:42px;
@@ -99,7 +99,7 @@
           <th class="orange thStandard">日</th><th class="thStandard">一</th><th class="thStandard">二</th><th class="thStandard">三</th><th class="thStandard">四</th><th class="thStandard">五</th><th class="orange thStandard">六</th>
         </tr>
       </thead>
-      <tbody id="content">
+      <tbody id="content" style="cursor:pointer;" onmousedown="initMotion(event)" onmouseup="endMotion(event)" >
         <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
