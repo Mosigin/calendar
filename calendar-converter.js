@@ -634,10 +634,11 @@ function endMotion(event){
   var vlYear = document.getElementById("year").value;
   if (currentMotion == "up") {
     if (vlMonth > 1) {
-      document.getElementById(vlMonth - 1 + 10000).selected = true;
+      document.getElementById(vlMonth - 1 - -10000).selected = true;
     }
-    else if ((vlMonth == 1) && (vlYear.value >= 1970)) {
+    else if ((vlMonth == 1) && (vlYear >= 1970)) {
       document.getElementById(vlYear - 1).selected = true;
+      document.getElementById(10012).selected = true;
     }
   }
   else if (currentMotion == "down") {
@@ -646,6 +647,7 @@ function endMotion(event){
     }
     else if ((vlMonth == 12) && (vlYear < 2049)) {
         document.getElementById(vlYear - -1).selected = true;
+        document.getElementById(10001).selected = true;
     }
   }
   else if (currentMotion == "left") {
