@@ -492,6 +492,7 @@ function load() {
     cYear.appendChild(option);
     option.value = i;
     option.text = i;
+    option.id = i;
     if (i == currentYear) {
       option.selected = true;
     }
@@ -502,6 +503,7 @@ function load() {
     cMonth.appendChild(option);
     option.value = i;
     option.text = i;
+    option.id = i + 10000; //add a 10000 to avoid false
     if (i == currentMonth) {
       option.selected = true;
     }
@@ -585,9 +587,9 @@ function change() {
       }
       //console.log(lunar + ' solarFestival:' + result.solarFestival);
       //console.log(JSON.stringify(result));
-      console.log(isToday)
+      //console.log(isToday)
       if (isToday) {
-        cell.style.background="url(blue.png) no-repeat" ;
+        cell.style.background="url(image/blue.png) no-repeat" ;
       }
       if (((row == 0) && (day > 7)) ||((row > 6) && (day < 15))) {
         cell.className = "number otherMonthDate";
@@ -595,4 +597,64 @@ function change() {
       }
     }
   }
+}
+
+
+var sensitive=10;
+var lastX;
+var lastY;
+
+
+
+function initMotion(event){
+
+  if(event.button==0){
+    lastX=event.clientX;  //record the location when the mouse click
+    lastY=event.clientY;
+  }
+}
+
+var currentMotion=null;
+
+
+
+function endMotion(event){
+  if(event.clientX  - lastX > sensitive){
+  currentMotion="right";
+  }else if(lastX - event.clientX > sensitive){
+  currentMotion="left";
+  }else if(lastY - event.clientY > sensitive){
+  currentMotion="down";
+  }else if(event.clientY - lastY > sensitive){
+  currentMotion="up";
+  }
+  var vlMonth = document.getElementById("month").value;
+  var vlYear = document.getElementById("year").value;
+  if (currentMotion == "up") {
+    if (vlMonth > 1) {
+      document.getElementById(vlMonth - 1 + 10000).selected = true;
+    }
+    else if ((vlMonth == 1) && (vlYear.value >= 1970)) {
+      document.getElementById(vlYear - 1).selected = true;
+    }
+  }
+  else if (currentMotion == "down") {
+    if (vlMonth < 12) {
+      document.getElementById(vlMonth + 1 + 10000).selected = true;
+    }
+    else if ((vlMonth == 12) && (vlYear < 2049)) {
+        document.getElementById(vlYear + 1).selected = true;
+    }
+  }
+  else if (currentMotion == "left") {
+    if (vlYear >= 1970) {
+      document.getElementById(vlYear - 1).selected = true;
+    }
+  }
+  else if (currentMotion == "right") {
+    if (vlYear < 2050) {
+      document.getElementById(vlYear + 1).selected = true;
+    }
+  }
+  currentMotion = null;
 }
