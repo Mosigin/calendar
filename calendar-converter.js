@@ -612,6 +612,7 @@ function initMotion(event){
     lastX=event.clientX;  //record the location when the mouse click
     lastY=event.clientY;
   }
+
 }
 
 var currentMotion=null;
