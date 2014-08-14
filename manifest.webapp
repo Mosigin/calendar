@@ -1,0 +1,14 @@
+{
+  "name": "calendar for Firefox OS",
+  "launch_path": "/calendar.html",
+  "developer": {
+    "name": Mosigin & Yuan",
+    "url": "http://www.mozifans.com"
+  },
+  "appcache_path": "/cache.manifest",
+  "fullscreen": "true",
+  "icons": {
+    "92": "/image/icon92.jpg"
+  },
+  "permissions": []
+}
