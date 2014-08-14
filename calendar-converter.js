@@ -623,11 +623,13 @@ function endMotion(event){
   currentMotion="right";
   }else if(lastX - event.clientX > sensitive){
   currentMotion="left";
-  }else if(lastY - event.clientY > sensitive){
-  currentMotion="down";
   }else if(event.clientY - lastY > sensitive){
+  currentMotion="down";
+  }else if(lastY - event.clientY > sensitive){
   currentMotion="up";
   }
+  console.log(currentMotion);
+  
   var vlMonth = document.getElementById("month").value;
   var vlYear = document.getElementById("year").value;
   if (currentMotion == "up") {
@@ -640,10 +642,10 @@ function endMotion(event){
   }
   else if (currentMotion == "down") {
     if (vlMonth < 12) {
-      document.getElementById(vlMonth + 1 + 10000).selected = true;
+      document.getElementById(vlMonth - -1 - -10000).selected = true;
     }
     else if ((vlMonth == 12) && (vlYear < 2049)) {
-        document.getElementById(vlYear + 1).selected = true;
+        document.getElementById(vlYear - -1).selected = true;
     }
   }
   else if (currentMotion == "left") {
@@ -653,7 +655,7 @@ function endMotion(event){
   }
   else if (currentMotion == "right") {
     if (vlYear < 2050) {
-      document.getElementById(vlYear + 1).selected = true;
+      document.getElementById(vlYear - -1).selected = true;
     }
   }
   currentMotion = null;
