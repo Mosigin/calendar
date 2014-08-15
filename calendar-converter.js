@@ -631,35 +631,37 @@ function endMotion(event){
   }
   console.log(currentMotion);
   
-  var vlMonth = document.getElementById("month").value;
-  var vlYear = document.getElementById("year").value;
+  var cMonth = document.getElementById("month");
+  var cYear = document.getElementById("year");
   if (currentMotion == "up") {
-    if (vlMonth > 1) {
-      document.getElementById(vlMonth - 1 - -10000).selected = true;
+    if (cMonth.value > 1) {
+      cMonth.value -= 1;
+      //console.log(vlMonth);
     }
-    else if ((vlMonth == 1) && (vlYear >= 1970)) {
-      document.getElementById(vlYear - 1).selected = true;
-      document.getElementById(10012).selected = true;
+    else if ((cMonth.value == 1) && (cYear.value >= 1970)) {
+      cYear.value -= 1;
+      vlMonth.value = 12;
     }
   }
   else if (currentMotion == "down") {
-    if (vlMonth < 12) {
-      document.getElementById(vlMonth - -1 - -10000).selected = true;
+    if (cMonth.value < 12) {
+      cMonth.value += 1;
     }
-    else if ((vlMonth == 12) && (vlYear < 2049)) {
-        document.getElementById(vlYear - -1).selected = true;
-        document.getElementById(10001).selected = true;
+    else if ((cMonth.value == 12) && (cYear.value < 2049)) {
+        cYear.value += 1;
+        cMonth.value = 1;
     }
   }
   else if (currentMotion == "left") {
-    if (vlYear >= 1970) {
-      document.getElementById(vlYear - 1).selected = true;
+    if (cYear.value >= 1970) {
+      cYear.value -= 1;
     }
   }
   else if (currentMotion == "right") {
-    if (vlYear < 2050) {
-      document.getElementById(vlYear - -1).selected = true;
+    if (cYear.value < 2050) {
+      cYear.value += 1;
     }
   }
+  change();
   currentMotion = null;
 }
