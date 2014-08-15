@@ -629,38 +629,34 @@ function endMotion(event){
   }else if(lastY - event.clientY > sensitive){
   currentMotion="up";
   }
-  console.log(currentMotion);
+  //console.log(currentMotion);
   
   var cMonth = document.getElementById("month");
   var cYear = document.getElementById("year");
   if (currentMotion == "up") {
     if (cMonth.value > 1) {
       cMonth.value -= 1;
-      //console.log(vlMonth);
     }
     else if ((cMonth.value == 1) && (cYear.value >= 1970)) {
       cYear.value -= 1;
-      vlMonth.value = 12;
+      cMonth.value = 12;
     }
   }
   else if (currentMotion == "down") {
     if (cMonth.value < 12) {
-      cMonth.value += 1;
+      cMonth.value = Number(cMonth.value) + 1;
     }
     else if ((cMonth.value == 12) && (cYear.value < 2049)) {
-        cYear.value += 1;
+        cYear.value = Number(cYear.value) + 1;
         cMonth.value = 1;
     }
   }
-  else if (currentMotion == "left") {
-    if (cYear.value >= 1970) {
-      cYear.value -= 1;
-    }
+  else if ((currentMotion == "left") && (cYear.value >= 1970)){
+    cYear.value -= 1;
   }
-  else if (currentMotion == "right") {
-    if (cYear.value < 2050) {
-      cYear.value += 1;
-    }
+  else if ((currentMotion == "right") && (cYear.value < 2050)) {
+    cYear.value = Number(cYear.value) + 1;
+    console.log(currentMotion);
   }
   change();
   currentMotion = null;
