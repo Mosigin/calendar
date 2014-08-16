@@ -635,10 +635,10 @@ function endMotion(event){
   var cYear = document.getElementById("year");
   if (currentMotion == "up") {
     if (cMonth.value > 1) {
-      cMonth.value -= 1;
+      cMonth.value = Number(cMonth.value) - 1;
     }
     else if ((cMonth.value == 1) && (cYear.value >= 1970)) {
-      cYear.value -= 1;
+      cYear.value = Number(cYear.value) - 1;
       cMonth.value = 12;
     }
   }
@@ -652,7 +652,7 @@ function endMotion(event){
     }
   }
   else if ((currentMotion == "left") && (cYear.value >= 1970)){
-    cYear.value -= 1;
+    cYear.value = Number(cYear.value) - 1;
   }
   else if ((currentMotion == "right") && (cYear.value < 2050)) {
     cYear.value = Number(cYear.value) + 1;
